@@ -1,0 +1,11 @@
+CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                    NAMES
+c60400bf4e02   ex1-nodeserver     "docker-entrypoint.s…"   12 seconds ago   Up 11 seconds   0.0.0.0:8199->8199/tcp   ex1-nodeserver-1
+6210f5dab125   ex1-pythonserver   "python3 App.py"         12 seconds ago   Up 11 seconds   0.0.0.0:8210->8210/tcp   pythonServer
+
+NETWORK ID     NAME                   DRIVER    SCOPE
+b56619436fe7   bridge                 bridge    local
+5b0e3583b9c6   devopscourse_default   bridge    local
+838f9d06eaf4   ex1_default            bridge    local
+0851114af88a   host                   host      local
+279477e1db8b   nodeserver_default     bridge    local
+6ab660ea306a   none                   null      local
