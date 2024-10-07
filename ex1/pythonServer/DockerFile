@@ -1,5 +1,0 @@
-FROM python:3
-ADD App.py App.py
-RUN pip install docker
-EXPOSE 8210
-CMD ["python3", "App.py"]
