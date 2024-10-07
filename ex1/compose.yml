@@ -1,7 +1,7 @@
 services:
   pythonserver:
     container_name: pythonServer
-    command: python3 App.py
+    command: python3 App.py 
     build:
       dockerfile: DockerFile
       context: ./pythonServer

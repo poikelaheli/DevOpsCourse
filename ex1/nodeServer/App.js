@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const http = require('http');
+const {exec} = require('child_process');
 
 const options = {
   hostname: 'pythonserver',
@@ -9,29 +10,84 @@ const options = {
   method: 'GET',
 };
 
+let pythonPayload = [];
+let nodePayload = [];
+
 app.get('/', (res,req) => {
-  console.log("HERE");
-  let payload;
+  formatResponse(req);
+});
+
+app.listen(8199, () => {
+  console.log("Listening");
+})
+
+const formatResponse = async(req) => {
+  try {
+    console.log("HERE");
+    await httpCallout();
+    await runBashComand("hostname -I");
+    await runBashComand("ps -ax");
+    await runBashComand("df");
+    await runBashComand("last reboot | head -1");
+    await sendResponse(req);
+    //req.send();
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
+const sendResponse = (req) => {
+  payload = "Service \n";
+  for (const item of (nodePayload)) {
+    payload += "\n" + item;
+  }
+  payload += "\nService2 \n";
+  for (const item of (pythonPayload)) {
+    payload += "\n" + item;
+  }
+  req.send(payload);
+}
+
+const httpCallout = () => {
+  let resolve, reject;
+  const promise = new Promise((rs, rj) => { resolve = rs; reject = rj; });
   http.get("http://pythonserver:8210", (res) => {
     console.log("TEST");
     //console.log(res);
     let data = [];
     res.on('data', (chunk) => {
-      console.log(chunk);
       data.push(chunk);
     }).on('error', (err) => {
       console.log("ERROR");
+      reject(err);
     }).on('end', () => {
       const json = Buffer.concat(data).toString();
-      console.log(json);
+      pythonPayload = json.split(";");
+      console.log(pythonPayload);
+      resolve();
     });
+    return promise;
   })
-  console.log("END");
-  //req.send();
-});
-app.listen(8199, () => {
-  console.log("Listening");
-})
+}
+
+const runBashComand = (command) => {
+  let resolve, reject;
+  const promise = new Promise((rs, rj) => { resolve = rs; reject = rj; });
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      //some err occurred
+      console.error(err)
+      reject(err);
+    } else {
+    // the *entire* stdout and stderr (buffered)
+    nodePayload.push(stdout);
+    console.log(nodePayload);
+    resolve();
+    }
+  })
+  return promise;
+}
 
 /*
   nodeserver:
