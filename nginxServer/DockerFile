@@ -1,0 +1,6 @@
+
+FROM nginx:stable-alpine
+
+EXPOSE 8198 
+
+CMD ["nginx"]

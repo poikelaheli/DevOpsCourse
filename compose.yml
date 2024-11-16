@@ -1,23 +1,67 @@
 services:
-  pythonserver:
-    container_name: pythonServer
+  pythonserver_1:
+    container_name: pythonServer1
     command: python3 App.py 
     build:
       dockerfile: DockerFile
       context: ./pythonServer
+    networks:
+        - loadbalancing
     ports:
       - "8210:8210"
     expose:
       - 8210
-  nodeserver:
+  nodeserver_1:
     command: npm start
     build:
       dockerfile: DockerFile
       context: ./nodeServer
-    ports:
-      - "8199:8199"
-    expose:
-      - 8199
+    environment: 
+      - PORT=8199
+    networks:
+      - loadbalancing
+  nodeserver_2:
+    command: npm start
+    build:
+      dockerfile: DockerFile
+      context: ./nodeServer
+    environment: 
+      - PORT=8199
+    networks:
+      - loadbalancing
+  nodeserver_3:
+    command: npm start
+    build:
+      dockerfile: DockerFile
+      context: ./nodeServer
+    environment: 
+      - PORT=8199
+    networks:
+      - loadbalancing
+  nodeserver_4:
+    command: npm start
+    build:
+      dockerfile: DockerFile
+      context: ./nodeServer
+    environment: 
+      - PORT=8199
+    networks:
+      - loadbalancing
+  nginx:
+    build: 
+      dockerfile: DockerFile
+      context: ./nginxServer
+    ports: 
+      - "8198:8198"
+    expose: 
+      - 8198
+    networks:
+        - loadbalancing
+    depends_on:
+      - nodeserver_1
+      - nodeserver_2
+      - nodeserver_3
+      - nodeserver_4
 
-
-    
+networks:
+  loadbalancing:

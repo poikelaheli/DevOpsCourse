@@ -4,7 +4,7 @@ const http = require('http');
 const {exec} = require('child_process');
 
 const options = {
-  hostname: 'pythonserver',
+  hostname: 'pythonserver1',
   port: 8210,
   //path: '/',
   method: 'GET',
@@ -52,7 +52,7 @@ const sendResponse = (req) => {
 const httpCallout = () => {
   let resolve, reject;
   const promise = new Promise((rs, rj) => { resolve = rs; reject = rj; });
-  http.get("http://pythonserver:8210", (res) => {
+  http.get("http://pythonserver1:8210", (res) => {
     console.log("TEST");
     //console.log(res);
     let data = [];
