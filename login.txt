@@ -1,14 +1,2 @@
-The docker containers share the host network. As they run in locally the 
-environment if the host's environment. In this implementation the services 
-are containerized so that the services run independently and only communicate 
-with each other. Their execution is not dependent on the environment or the 
-other service. 
-
-The host environment can access information about the containers that hold
-each service. The key information shared is exposed ports, container ids and images
-in additon to statuses. The host network hold uo the communication channel and 
-allows a passage for the HTTP-communication between the services. 
-
-Not so promenantly visibly the containers also provide their IP addresses and 
-execution information to the host. The host supervises the network as a whole so 
-it needs the location and availability information of the services.
+username: testUser
+password: 23testpaSS

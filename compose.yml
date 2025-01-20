@@ -6,62 +6,34 @@ services:
       dockerfile: DockerFile
       context: ./pythonServer
     networks:
-        - loadbalancing
+      - loadbalancing
     ports:
       - "8210:8210"
-    expose:
-      - 8210
-  nodeserver_1:
+  nodeserver:
     command: npm start
     build:
       dockerfile: DockerFile
       context: ./nodeServer
     environment: 
       - PORT=8199
-    networks:
-      - loadbalancing
-  nodeserver_2:
-    command: npm start
-    build:
-      dockerfile: DockerFile
-      context: ./nodeServer
-    environment: 
-      - PORT=8199
-    networks:
-      - loadbalancing
-  nodeserver_3:
-    command: npm start
-    build:
-      dockerfile: DockerFile
-      context: ./nodeServer
-    environment: 
-      - PORT=8199
-    networks:
-      - loadbalancing
-  nodeserver_4:
-    command: npm start
-    build:
-      dockerfile: DockerFile
-      context: ./nodeServer
-    environment: 
-      - PORT=8199
+    deploy:
+      replicas: 4
     networks:
       - loadbalancing
   nginx:
     build: 
       dockerfile: DockerFile
       context: ./nginxServer
+    #environment: 
+    #  - PORT=8198
     ports: 
-      - "8198:8198"
-    expose: 
-      - 8198
+      - "8198:80"
+    #expose: 
+    #  - 8198
     networks:
-        - loadbalancing
+      - loadbalancing
     depends_on:
-      - nodeserver_1
-      - nodeserver_2
-      - nodeserver_3
-      - nodeserver_4
+      - nodeserver
 
 networks:
   loadbalancing:
