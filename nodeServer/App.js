@@ -2,6 +2,21 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const {exec} = require('child_process');
+const path = require('path');
+const fs = require('fs');
+
+let htmlPage = " <!DOCTYPE html>" +
+"<html>" +
+"<head></head>" +
+"<body>" +
+    "<script type = \"text/javascript\" src=\"App.js\"></script>" +
+    "<div>" +
+        "<button onclick=\"handleRequest()\">Request</button>" +
+        "<button>Stop</button>" +
+        "<textarea id=\"response\">{value}</textarea>" +
+    "</div>" +
+"</body>" +
+"</html>";
 
 const options = {
   hostname: 'pythonserver1',
@@ -13,7 +28,15 @@ const options = {
 let pythonPayload = [];
 let nodePayload = [];
 
+app.use(express.static('public')); 
+
 app.get('/', (res,req) => {
+  req.sendFile(path.join(__dirname, '../', 'page.html'));
+  console.log(path.join(__dirname, '../', 'page.html'));
+  //formatResponse(req);
+});
+
+app.get('/request', (res,req) => {
   formatResponse(req);
 });
 
@@ -46,6 +69,9 @@ const sendResponse = (req) => {
   for (const item of (pythonPayload)) {
     payload += "\n" + item;
   }
+  //htmlPage.replace('{value}', payload);
+  //req.write(htmlPage);
+  //req.end();
   req.send(payload);
 }
 

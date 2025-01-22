@@ -16,6 +16,8 @@ services:
       context: ./nodeServer
     environment: 
       - PORT=8199
+    #ports: 
+    #  - "8199:8199"
     deploy:
       replicas: 4
     networks:

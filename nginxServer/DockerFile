@@ -5,6 +5,8 @@ COPY nginx.config /etc/nginx/nginx.conf
 
 COPY page.html /usr/share/nginx/html/index.html
 
+ADD scripts.js /usr/share/nginx/html/scripts.js
+
 COPY .htpasswd /etc/nginx/.htpasswd
 
 EXPOSE 80
