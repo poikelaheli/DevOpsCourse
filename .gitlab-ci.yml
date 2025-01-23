@@ -1,6 +1,7 @@
 build-job:
   stage: build
   script: 
+    - unset DOCKER_HOST
     - docker compose build
     - echo "Built"
 
