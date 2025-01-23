@@ -1,11 +1,10 @@
 build-job:
   image: docker:latest
   services:
-    - docker:dind
+    - docker:latest-dind
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
-    DOCKER_DRIVER: overlay2
   stage: build
   script: 
     - dockerd
