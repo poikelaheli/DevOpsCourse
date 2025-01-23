@@ -1,7 +1,7 @@
 default:
   image: docker:stable
   services:
-    - name: docker:dind
+    - name: docker:24.0-dind
       alias: docker
   before_script:
     - docker info
