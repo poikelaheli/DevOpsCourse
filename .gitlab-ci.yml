@@ -1,7 +1,7 @@
 build-job:
   stage: build
   script: 
-    - systemctl start docker
+    - sudo dockerd
     - unset DOCKER_HOST
     - docker compose build
     - echo "Built"
