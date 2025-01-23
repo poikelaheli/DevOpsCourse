@@ -1,7 +1,7 @@
 build-job:
   image: docker:latest
   services:
-    -docker:dind
+    - docker:dind
   stage: build
   script: 
     - unset DOCKER_HOST
