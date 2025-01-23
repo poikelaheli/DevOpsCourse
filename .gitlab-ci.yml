@@ -1,8 +1,9 @@
 build-job:
+  image: docker:latest
+  services:
+    -docker:dind
   stage: build
   script: 
-    - docker context ls 
-    - docker context use default 
     - unset DOCKER_HOST
     - docker compose build
     - echo "Built"
