@@ -11,7 +11,7 @@ variables:
 build-job:
   stage: build
   script: 
-    - dockerd
+    - unset DOCKER_HOST
     - docker compose build
     - echo "Built"
 
