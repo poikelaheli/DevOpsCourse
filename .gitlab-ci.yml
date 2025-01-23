@@ -1,7 +1,8 @@
 build-job:
   stage: build
   script: 
-    - sudo dockerd
+    - docker context ls 
+    - docker context use default 
     - unset DOCKER_HOST
     - docker compose build
     - echo "Built"
