@@ -1,22 +1,14 @@
 default:
   image:
-    name: docker/compose:latest
+    name: docker:latest
   services:
-    - name: $DOCKER_DIND 
-      entrypoint: ["dockerd-entrypoint.sh", "--tls=false"]
-
-
-variables: 
-  DOCKER_DIND: "docker:20.10.16-dind" 
-  DOCKER_TLS_CERTDIR: ""
-  DOCKER_HOST: "tcp://127.0.0.1:2375"
-  FF_NETWORK_PER_BUILD: "true"
+    - docker:dind
 
 build-job:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker-compose build
+    - docker compose build
 
 test-job1:
   stage: test
