@@ -2,6 +2,7 @@ image:
   name: docker/compose:latest
 
 variables: 
+  DOCKER_DIND: "docker:20.10.16-dind" 
   DOCKER_HOST: "tcp://docker:2375"
 
 build-job:
