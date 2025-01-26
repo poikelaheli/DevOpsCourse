@@ -1,6 +1,9 @@
 image:
   name: docker/compose:latest
 
+variables: 
+  DOCKER_HOST: "tcp://docker:2375"
+
 build-job:
   stage: build
   script:
