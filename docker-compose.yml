@@ -9,7 +9,7 @@ services:
       - loadbalancing
     ports:
       - "8210:8210"
-  nodeserver:
+  nodeserver1:
     command: npm start
     build:
       dockerfile: DockerFile
@@ -18,8 +18,28 @@ services:
       - PORT=8199
     #ports: 
     #  - "8199:8199"
-    deploy:
-      replicas: 4
+    networks:
+      - loadbalancing
+  nodeserver2:
+    command: npm start
+    build:
+      dockerfile: DockerFile
+      context: ./nodeServer
+    environment: 
+      - PORT=8199
+    #ports: 
+    #  - "8199:8199"
+    networks:
+      - loadbalancing
+  nodeserver3:
+    command: npm start
+    build:
+      dockerfile: DockerFile
+      context: ./nodeServer
+    environment: 
+      - PORT=8199
+    #ports: 
+    #  - "8199:8199"
     networks:
       - loadbalancing
   nginx:
@@ -35,7 +55,9 @@ services:
     networks:
       - loadbalancing
     depends_on:
-      - nodeserver
+      - nodeserver1
+      - nodeserver2
+      - nodeserver3
 
 networks:
   loadbalancing:
