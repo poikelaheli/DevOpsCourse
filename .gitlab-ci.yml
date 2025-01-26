@@ -9,6 +9,8 @@ variables:
 
 build-job:
   stage: build
+  services:
+    - $DOCKER_DIND 
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - docker-compose build
