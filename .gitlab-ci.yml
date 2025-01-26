@@ -7,14 +7,14 @@ before_script:
 build-job:
   stage: build
   image:
-    name: docker:stable
+    name: docker:dind
   services:
     - name: docker:dind
       alias: docker
+      command: ["--tls=false"]
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker info
-    - docker-compose build
+    - docker compose
 
 test-job1:
   stage: test
@@ -34,3 +34,4 @@ deploy-prod:
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   environment: production
+
