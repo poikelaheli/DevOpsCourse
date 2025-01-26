@@ -14,7 +14,7 @@ build-job:
       command: ["--tls=false"]
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker compose
+    - docker-compose build
 
 test-job1:
   stage: test
