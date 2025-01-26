@@ -8,6 +8,7 @@ build-job:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
+    - unset DOCKER_HOST
     - docker compose build
 
 test-job1:
