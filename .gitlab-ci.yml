@@ -8,7 +8,7 @@ default:
 variables: 
   DOCKER_DIND: "docker:20.10.16-dind" 
   DOCKER_TLS_CERTDIR: ""
-  DOCKER_HOST: "tcp://docker:8198"
+  DOCKER_HOST: "tcp://docker:2375"
   FF_NETWORK_PER_BUILD: "true"
 
 build-job:
