@@ -1,3 +1,4 @@
+version: "3"
 services:
   pythonserver_1:
     container_name: pythonServer1
