@@ -1,16 +1,16 @@
-image:
-  name: docker/compose:latest
-
-variables: 
-  DOCKER_DIND: "docker:20.10.16-dind" 
-  DOCKER_TLS_CERTDIR: ""
-  DOCKER_HOST: "tcp://docker:2375"
-  FF_NETWORK_PER_BUILD: "true"
+default:
+  image:
+    name: docker/compose:latest
+  variables: 
+    DOCKER_DIND: "docker:20.10.16-dind" 
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: "tcp://docker:2375"
+    FF_NETWORK_PER_BUILD: "true"
+  services:
+    - $DOCKER_DIND 
 
 build-job:
   stage: build
-  services:
-    - $DOCKER_DIND 
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - docker-compose build
