@@ -14,7 +14,7 @@ build-job:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker compose up 
+    - docker-compose build
 
 test-job1:
   stage: test
@@ -23,10 +23,6 @@ test-job1:
     - htpasswd -c -b .htpasswd ${USERNAME} ${PASSWORD}
     - docker-compose up --build -d
     - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
-
-test-job2:
-  stage: test
-  script:
     - echo "Testing state callouts"
     - curl -X PUT http://docker:8197/INIT
     - curl -X GET http://docker:8197/state
