@@ -20,6 +20,7 @@ test-job1:
   stage: test
   script:
     - echo "This job tests something"
+    - apt-get install apache2-utils
     - htpasswd -b -c /var/opt/gitlab/nginx/conf/ $USERNAME $PASSWORD
     - docker-compose up --build -d
     - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
