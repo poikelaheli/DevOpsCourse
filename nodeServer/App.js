@@ -5,6 +5,8 @@ const {exec} = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+let state = "INIT";
+
 let htmlPage = " <!DOCTYPE html>" +
 "<html>" +
 "<head></head>" +
@@ -38,6 +40,10 @@ app.get('/', (res,req) => {
 
 app.get('/request', (res,req) => {
   formatResponse(req);
+});
+
+app.get('/state', (res,req) => {
+  req.send(state);
 });
 
 app.listen(8199, () => {

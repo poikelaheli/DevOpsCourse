@@ -51,6 +51,7 @@ services:
     #  - PORT=8198
     ports: 
       - "8198:80"
+      - "8197:8197"
     #expose: 
     #  - 8198
     networks:
