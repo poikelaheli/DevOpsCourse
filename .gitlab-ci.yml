@@ -24,6 +24,13 @@ test-job1:
     - docker-compose up --build -d
     - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
     - echo "Testing state callouts"
+    - curl -X PUT http://docker:8197/INIT
+    - curl -X GET http://docker:8197/state
+    - curl -X PUT http://docker:8197/PAUSED
+    - curl -X GET http://docker:8197/state
+    - curl -X PUT http://docker:8197/RUNNING
+    - curl -X GET http://docker:8197/state
+    - curl -X PUT http://docker:8197/SHUTDOWN
     - curl -X GET http://docker:8197/state
 
 deploy-prod:
