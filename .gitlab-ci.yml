@@ -4,7 +4,7 @@ default:
     - name: docker:dind  
       command: ["--tls=false"]
   before_script:
-  - apk add --no-cache docker-compose curl htpasswd
+  - apk add --no-cache docker-compose curl apache2-utils
 variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
@@ -20,7 +20,6 @@ test-job1:
   stage: test
   script:
     - echo "This job tests something"
-    - apt-get install apache2-utils
     - htpasswd -b -c /var/opt/gitlab/nginx/conf/ $USERNAME $PASSWORD
     - docker-compose up --build -d
     - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
