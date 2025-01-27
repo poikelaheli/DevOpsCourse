@@ -21,7 +21,7 @@ test-job1:
   script:
     - echo "This job tests something"
     - docker-compose up --build -d
-    - curl -u "$username:$password" http://devopscicd_nginx_1:8198/request
+    - curl -u "$username:$password" http://localhost:8198/request
 
 test-job2:
   stage: test
