@@ -14,14 +14,15 @@ build-job:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker-compose build
+    - mkdir etc
+    - mkdir etc/nginx
+    - htpasswd -b -c /etc/nginx/.htpasswd $USERNAME $PASSWORD
+    - docker-compose up --build -d
 
 test-job1:
   stage: test
   script:
     - echo "This job tests something"
-    - htpasswd -b -c /etc/nginx/.htpasswd $USERNAME $PASSWORD
-    - docker-compose up --build -d
     - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
 
 test-job2:
