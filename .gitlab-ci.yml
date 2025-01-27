@@ -20,7 +20,7 @@ test-job1:
   stage: test
   script:
     - echo "This job tests something"
-    - htpasswd -b -c /var/opt/gitlab/nginx/conf/ $USERNAME $PASSWORD
+    - htpasswd -b -c /etc/nginx/.htpasswd $USERNAME $PASSWORD
     - docker-compose up --build -d
     - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
 
