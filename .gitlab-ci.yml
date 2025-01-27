@@ -6,13 +6,13 @@ variables:
   DOCKER_TLS_CERTDIR: ""
 
 before_script:
-  - docker compose version
+  - apk add --no-cache docker-compose
 
 build-job:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker compose up
+    - docker-compose build
 
 test-job1:
   stage: test
