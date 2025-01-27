@@ -16,7 +16,7 @@ build-job:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - mkdir etc
     - mkdir etc/nginx
-    - htpasswd -b -c /etc/nginx/.htpasswd $USERNAME $PASSWORD
+    - htpasswd -c -b .htpasswd ${USERNAME} ${PASSWORD}
     - docker-compose up --build -d
 
 test-job1:
