@@ -46,6 +46,27 @@ app.get('/state', (res,req) => {
   req.send(state);
 });
 
+app.put('/INIT', (res,req) => {
+  setState(req, 'INIT');
+});
+
+app.put('/PAUSED', (res,req) => {
+  setState(req, 'PAUSED');
+});
+
+app.put('/RUNNING', (res,req) => {
+  setState(req, 'RUNNING');
+});
+
+app.put('/SHUTDOWN', (res,req) => {
+  setState(req, 'SHUTDOWN');
+});
+
+const setState = ( req, newState ) => {
+  state = newState;
+  req.send("State has been updated. New state: " + state);
+};
+
 app.listen(8199, () => {
   console.log("Listening");
 })
