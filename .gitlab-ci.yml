@@ -6,7 +6,7 @@ variables:
   DOCKER_TLS_CERTDIR: ""
 
 before_script:
-  - docker-compose version
+  - docker compose version
 
 build-job:
   stage: build
