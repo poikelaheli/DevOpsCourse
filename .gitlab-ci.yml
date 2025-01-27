@@ -1,6 +1,5 @@
 default:
-  image: 
-    - docker:stable
+  image: docker:stable
   services: 
     - docker:dind  
   before_script:
