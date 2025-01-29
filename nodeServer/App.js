@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 
 let state = "INIT";
+let stateLog = [];
 
 let htmlPage = " <!DOCTYPE html>" +
 "<html>" +
@@ -31,6 +32,7 @@ let pythonPayload = [];
 let nodePayload = [];
 
 app.use(express.static('public')); 
+app.use(express.json());
 
 app.get('/', (res,req) => {
   req.sendFile(path.join(__dirname, '../', 'page.html'));
@@ -43,29 +45,40 @@ app.get('/request', (res,req) => {
 });
 
 app.get('/state', (res,req) => {
-  req.send(state);
-});
-
-app.put('/INIT', (res,req) => {
-  setState(req, 'INIT');
-});
-
-app.put('/PAUSED', (res,req) => {
-  setState(req, 'PAUSED');
-});
-
-app.put('/RUNNING', (res,req) => {
-  setState(req, 'RUNNING');
-});
-
-app.put('/SHUTDOWN', (res,req) => {
-  setState(req, 'SHUTDOWN');
+  console.log(req);
+  let data = [];
+  res.on('data', (chunk) => {
+    data.push(chunk);
+  }).on('error', (err) => {
+    console.log("ERROR");
+    reject(err);
+  }).on('end', () => {
+    console.log(data);
+    const payload = Buffer.concat(data).toString();
+    console.log(payload);
+    if (payload != undefined && payload != "") {
+      setState(req, payload);
+    }
+    else {
+      req.send(state);
+    }
+  });
 });
 
 const setState = ( req, newState ) => {
+
+  stateLog.push(new Date().toISOString() + ": " + state + " -> " + newState);
   state = newState;
   req.send("State has been updated. New state: " + state);
 };
+
+app.get('/run-log', (res, req) => {
+  let payload = "";
+  for (i = 0; i < stateLog.length; i ++) {
+    payload = payload + stateLog[i] + "\n";
+  }
+  req.send(payload);
+})
 
 app.listen(8199, () => {
   console.log("Listening");
