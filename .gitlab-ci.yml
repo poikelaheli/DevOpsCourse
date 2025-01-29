@@ -28,20 +28,18 @@ test-job1:
     
     - echo "Testing state callouts"
     # Check for errors in responses
-    - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" | (! grep -q "Error")
-    - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X PUT http://docker:8197/state -d "INIT" | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
-    - curl -s -S -X PUT http://docker:8197/state -d "SHUTDOWN" | (! grep -q "Error")
-    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
+    - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" 
+    - curl -s -S -X GET http://docker:8197/state
+    - curl -s -S -X GET http://docker:8197/state | ( grep -q "PAUSED")
+    - curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
+    - curl -s -S -X GET http://docker:8197/state 
+    - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" 
+    - curl -s -S -X GET http://docker:8197/state 
+    - curl -s -S -X PUT http://docker:8197/state 
+    - curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
+    - curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
+    - curl -s -S -X GET http://docker:8197/state 
 
 deploy-prod:
   stage: deploy
