@@ -27,7 +27,7 @@ test-job1:
     - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198/request
     
     - echo "Testing state callouts"
-    # Check for errors in responses
+    # Check for correct output
     - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
     - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" 
     - curl -s -S -X GET http://docker:8197/state
@@ -40,6 +40,13 @@ test-job1:
     - curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
     - curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
     - curl -s -S -X GET http://docker:8197/state 
+
+    - echo "Testing callouts to paused server"
+    - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
+    - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
+    - curl -s -S -X GET http://docker:8197/state
+    - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "401")
+    - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198 | ( grep -q "401")
 
 deploy-prod:
   stage: deploy

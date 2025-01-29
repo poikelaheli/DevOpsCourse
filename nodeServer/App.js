@@ -36,13 +36,22 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/', (res,req) => {
-  req.sendFile(path.join(__dirname, '../', 'page.html'));
-  console.log(path.join(__dirname, '../', 'page.html'));
-  //formatResponse(req);
+  if (state == "PAUSED") {
+    req.send();
+  }
+  else {
+    req.sendFile(path.join(__dirname, '../', 'page.html'));
+    console.log(path.join(__dirname, '../', 'page.html'));
+  }
 });
 
 app.get('/request', (res,req) => {
-  formatResponse(req);
+  if (state == "PAUSED") {
+    req.send();
+  }
+  else {
+    formatResponse(req);
+  }
 });
 
 app.put('/state', (res,req) => {
