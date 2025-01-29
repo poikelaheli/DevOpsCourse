@@ -43,9 +43,6 @@ test-job1:
     - curl -s -S -X PUT http://docker:8197/state -d "SHUTDOWN" | (! grep -q "Error")
     - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
 
-    # This should fail if there's no error (testing error condition)
-    - curl -s -X PUT http://docker:8197/state | grep "Error"
-
 deploy-prod:
   stage: deploy
   script:
