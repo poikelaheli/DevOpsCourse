@@ -5,6 +5,7 @@ const {exec} = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+const states = ["INIT", "RUNNING", "PAUSED", "SHUTDOWN"];
 let state = "INIT";
 let stateLog = [];
 
@@ -44,7 +45,7 @@ app.get('/request', (res,req) => {
   formatResponse(req);
 });
 
-app.get('/state', (res,req) => {
+app.put('/state', (res,req) => {
   console.log(req);
   let data = [];
   res.on('data', (chunk) => {
@@ -56,14 +57,22 @@ app.get('/state', (res,req) => {
     console.log(data);
     const payload = Buffer.concat(data).toString();
     console.log(payload);
-    if (payload != undefined && payload != "") {
+    if (payload != undefined && 
+      payload != "" && 
+      payload != state &&
+      states.includes(payload)
+    ) {
       setState(req, payload);
     }
     else {
-      req.send(state);
+      req.send("ERROR: Invalid input for state");
     }
   });
 });
+
+app.get('/state', (res, req) => {
+  req.send(state);
+})
 
 const setState = ( req, newState ) => {
 

@@ -22,22 +22,29 @@ test-job1:
     - echo "Testing request to servers"
     - htpasswd -c -b .htpasswd ${USERNAME} ${PASSWORD}
     - docker-compose up --build -d
-    - curl -u "$USERNAME:$PASSWORD" http://docker:8198/request
-    - echo "Testing state callouts"
-    - curl -X PUT http://docker:8197/state -d ”PAUSED”
-    - curl -X GET http://docker:8197/state -d ”RUNNING”
-    - curl -X GET http://docker:8197/state
-    - curl -X GET http://docker:8197/state
-    - curl -X PUT http://docker:8197/state -d ”RUNNING”
-    - curl -X GET http://docker:8197/state
-    - curl -X GET http://docker:8197/state
-    - curl -X GET http://docker:8197/state
-    - curl -X PUT http://docker:8197/state -d ”INIT”
-    - curl -X GET http://docker:8197/state
-    - curl -X GET http://docker:8197/state
-    - curl -X GET http://docker:8197/state
-    - curl -X PUT http://docker:8197/state -d ”SHUTDOWN”
-    - curl -X GET http://docker:8197/state
+    
+    # Basic auth request - fail if status code isn't 200
+    - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198/request
+    
+    echo "Testing state callouts"
+    # Check for errors in responses
+    - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" | (! grep -q "Error")
+    - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X PUT http://docker:8197/state -d "RUNNING" | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X PUT http://docker:8197/state -d "INIT" | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+    - curl -s -S -X PUT http://docker:8197/state -d "SHUTDOWN" | (! grep -q "Error")
+    - curl -s -S -X GET http://docker:8197/state | (! grep -q "Error")
+
+    # This should fail if there's no error (testing error condition)
+    - curl -s -X PUT http://docker:8197/state | grep "Error"
 
 deploy-prod:
   stage: deploy
