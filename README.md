@@ -2,13 +2,24 @@
 
 ## Implemented optional features:
 
-There are no optiona features implemented
+Due to timeconstraints I didn't have time to implement any optional features. Additionally some basic features didn't get finished for the same reason. Here are a list of featues that were implemented:
+- Load balancing and authentication using nginx
+- Request logic for requesting information from the servers and printing that on the screen
+- API interface with following endpoints:
+    - /run-log
+    - /request
+    - /state 
+        - GET: returns current state
+        - PUT: updates state
+            - The system has logic got PAUSED and RUNNING states, state management handles other states too, but the system does not respond as fully as expected
 
 ## Instructions for examiner to test the system.
 
 The system is listening to two ports:
 - Browser user Interface is available from port 8198
 - API interface is available from port 8197
+
+The system can be run locally as instructed in the Project instructions
 
 ## Data about the platform you used in development
 
@@ -22,18 +33,54 @@ system, version of docker and docker-compose)
 ## Description of the CI/CD pipeline
 
 **Briefly document all steps**
-Version management: 
-- only one branch -> project
-Building tools:
-- Docker runner
-Testing; tools and test cases
-Packing
-Deployment
-Operating; monitoring
+
+- Version management: 
+    - only one branch -> project
+- Building tools:
+    - Docker runner
+- Testing: 
+    - jest and supertests
+        - testing http requests
+    - curl commands
+        - testing http requests
+- Packing
+- Deployment
+- Operating; monitoring
 
 ## Example runs of the pipeline
 
-Include some kind of log of both failing test and passing.
+Failin test log:
+
+$ echo "Testing state callouts"
+Testing state callouts
+$ curl -s -S -X PUT http://docker:8197/state -d "PAUSED"
+State has been updated. New state: PAUSED$ curl -s -S -X PUT http://docker:8197/state -d "RUNNING"
+State has been updated. New state: RUNNING$ curl -s -S -X GET http://docker:8197/state
+INIT$ curl -s -S -X GET http://docker:8197/state | ( grep -q "PAUSED")
+$ curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
+$ curl -s -S -X GET http://docker:8197/state | ( grep -q "INIT")
+$ curl -s -S -X PUT http://docker:8197/state -d "RUNNING"
+State has been updated. New state: RUNNING$ curl -s -S -X GET http://docker:8197/state
+RUNNING$ curl -s -S -X GET http://docker:8197/state
+INIT$ curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
+$ curl -s -S -X GET http://docker:8197/state | ( grep -q "RUNNING")
+$ curl -s -S -X GET http://docker:8197/state
+INIT$ echo "Testing callouts to paused server"
+Testing callouts to paused server
+$ curl -s -S -X PUT http://docker:8197/state -d "PAUSED"
+State has been updated. New state: PAUSED$ curl -s -S -X PUT http://docker:8197/state -d "PAUSED"
+State has been updated. New state: PAUSED$ curl -s -S -X GET http://docker:8197/state
+INIT$ curl -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "")
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+Cleaning up project directory and file based variables
+00:04
+ERROR: Job failed: exit code 1
+
+Successful test log:
+
+
 
 ## Reflections
 
