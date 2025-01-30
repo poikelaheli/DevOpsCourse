@@ -3,8 +3,8 @@ const app = require('../App');
 
 jest.setTimeout(7000);
 
-describe('GET /request', async() => {
-    it('responds with text data', () => {
+describe('GET /request', () => {
+    it('responds with text data', async() => {
         request(app)
             .get('/request')
             .expect('Content-Type', /text/)
