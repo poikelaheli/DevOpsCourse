@@ -19,6 +19,11 @@ build-job:
 test-job1:
   stage: test
   script:
+    - echo "Running unit tests"
+    - cd nodeServer/
+    - npm run tests
+    - cd ..
+
     - echo "Testing request to servers"
     - htpasswd -c -b .htpasswd ${USERNAME} ${PASSWORD}
     - docker-compose up --build -d
@@ -45,8 +50,8 @@ test-job1:
     - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
     - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
     - curl -s -S -X GET http://docker:8197/state
-    - curl -s -S -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "")
-    - curl -s -S -f -u "$USERNAME:$PASSWORD" http://docker:8198 | ( grep -q "")
+    - curl -s -S -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "Server is paused"")
+    - curl -s -S -f -u "$USERNAME:$PASSWORD" http://docker:8198 | ( grep -q "Server is paused"")
 
     - docker-compose down
 

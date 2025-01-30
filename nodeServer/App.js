@@ -37,7 +37,7 @@ app.use(express.json());
 
 app.get('/', (res,req) => {
   if (state == "PAUSED") {
-    req.send();
+    req.send("Server is paused");
   }
   else {
     req.sendFile(path.join(__dirname, '../', 'page.html'));
@@ -47,7 +47,7 @@ app.get('/', (res,req) => {
 
 app.get('/request', (res,req) => {
   if (state == "PAUSED") {
-    req.send();
+    req.send("Server is paused");
   }
   else {
     formatResponse(req);
@@ -173,6 +173,7 @@ const runBashComand = (command) => {
   return promise;
 }
 
+module.exports = app;
 /*
   nodeserver:
     command: npm start
