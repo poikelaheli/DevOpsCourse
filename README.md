@@ -2,13 +2,23 @@
 
 ## Implemented optional features:
 
-There are no optiona features implemented
+Due to timeconstraints I didn't have time to implement any optional features. Additionally some basic features didn't get finished for the same reason. Here are a list of featues that were implemented:
+- Load balancing and authentication using nginx
+- Request logic for requesting information from the servers and printing that on the screen
+- API interface with following endpoints:
+    - /run-log
+    - /state 
+    - GET: returns current state
+    - PUT: updates state
+        - The system has logic got PAUSED and RUNNING states, state management handles other states too, but the system does not respond as fully as expected
 
 ## Instructions for examiner to test the system.
 
 The system is listening to two ports:
 - Browser user Interface is available from port 8198
 - API interface is available from port 8197
+
+The system can be run locally as instructed in the Project instructions
 
 ## Data about the platform you used in development
 
@@ -26,7 +36,9 @@ Version management:
 - only one branch -> project
 Building tools:
 - Docker runner
-Testing; tools and test cases
+Testing: tools and test cases
+- jest and supertests
+- curl commands
 Packing
 Deployment
 Operating; monitoring
