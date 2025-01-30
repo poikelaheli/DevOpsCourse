@@ -7,10 +7,11 @@ Due to timeconstraints I didn't have time to implement any optional features. Ad
 - Request logic for requesting information from the servers and printing that on the screen
 - API interface with following endpoints:
     - /run-log
+    - /request
     - /state 
-    - GET: returns current state
-    - PUT: updates state
-        - The system has logic got PAUSED and RUNNING states, state management handles other states too, but the system does not respond as fully as expected
+        - GET: returns current state
+        - PUT: updates state
+            - The system has logic got PAUSED and RUNNING states, state management handles other states too, but the system does not respond as fully as expected
 
 ## Instructions for examiner to test the system.
 
