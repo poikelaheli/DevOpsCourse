@@ -32,16 +32,19 @@ system, version of docker and docker-compose)
 ## Description of the CI/CD pipeline
 
 **Briefly document all steps**
-Version management: 
-- only one branch -> project
-Building tools:
-- Docker runner
-Testing: tools and test cases
-- jest and supertests
-- curl commands
-Packing
-Deployment
-Operating; monitoring
+
+- Version management: 
+    - only one branch -> project
+- Building tools:
+    - Docker runner
+- Testing: 
+    - jest and supertests
+        - testing http requests
+    - curl commands
+        - testing http requests
+- Packing
+- Deployment
+- Operating; monitoring
 
 ## Example runs of the pipeline
 
