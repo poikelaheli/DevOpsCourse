@@ -84,15 +84,11 @@ Successful test log:
 
 ## Reflections
 
-CICD-pipelines were really new for me at the start of the project. I had very little prior knowledge in them.For that reason learning and troubleshooting were timeconsuming for me. After a lot of trial and error and researching I turned to AI for help in understanding the error messages and helping in configuring mainly the Gitlab runner and gitlab-ci.yaml file. 
+When starting this project I had practically no prior knowledge in how to implement and configure cicd-pipelines. I had used then for other courses, but the used configurations  I did were fairly simple. For that reason learning and troubleshooting were timeconsuming for me. After a lot of trial, error and researching I turned to AI for help in understanding the error messages and helping in configuring mainly the Gitlab runner and gitlab-ci.yaml file. 
 
-The tool I used was Cursor, an editor with a build in AI chat. With prompts like "What does X error mean?" and "Can you expalin following command: x" the AI provided explanations and possible solutions or causes of the errors. I found it really helpful in undersanding how to modify the configuration files for my needs and with the given explanations I gained knowledge of both the programming languages I used and the specific parts of the Gitlab cicd pipeline that where challenging for me and which I couldn't figure out with my own research. 
+The tool I used was Cursor, an editor with a build in AI chat. With prompts like "What does X error mean?" and "Can you explain following command: X" the AI provided explanations and possible solutions or causes for the errors. I found it really helpful in undersanding how to modify the configuration files for my needs and with the given explanations I gained knowledge of both the programming languages I used and the specific parts of the Gitlab cicd pipeline that where challenging for me and which I couldn't figure out with my own research. 
 
-Overall I learned a lot during the project. However it was more timeconsuming than I had expected which resulted in 
-me not finishing all features and having no time for optional features. 
-
-Main learnings and worst difficulties
-Especially, if you think that something should have been done differently, describe it here.
+Overall I learned a lot during the project. However it was more timeconsuming than I had expected which resulted in me not finishing all features and having no time for optional ones. 
 
 ## Amount effort (hours) used
 Approximately 60-70 hours
