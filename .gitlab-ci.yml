@@ -45,8 +45,8 @@ test-job1:
     - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
     - curl -s -S -X PUT http://docker:8197/state -d "PAUSED" 
     - curl -s -S -X GET http://docker:8197/state
-    - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "401")
-    - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198 | ( grep -q "401")
+    - curl -s -S -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "401")
+    - curl -s -S -f -u "$USERNAME:$PASSWORD" http://docker:8198 | ( grep -q "401")
 
     - docker-compose down
 
