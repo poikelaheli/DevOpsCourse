@@ -48,9 +48,16 @@ test-job1:
     - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198/request | ( grep -q "")
     - curl -f -u "$USERNAME:$PASSWORD" http://docker:8198 | ( grep -q "")
 
+    - docker-compose down
+
 deploy-prod:
   stage: deploy
   script:
-    - echo "This job deploy the application"
+    - echo "Deploy the application to production"
+    - docker-compose down --remove-orphans
+    - docker-compose pull
+    - docker-compose up -d
+  only:
+    - project
   environment: production
 
