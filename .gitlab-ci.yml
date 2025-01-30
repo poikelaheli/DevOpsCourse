@@ -62,6 +62,7 @@ test-job2:
   script:
     - echo "Running unit tests"
     - cd nodeServer/
+    - npm install supertest jest
     - npm run tests
 
 deploy-prod:
