@@ -26,7 +26,7 @@ The system can be run locally as instructed in the Project instructions
 (hardware, CPU architecture, operating
 system, version of docker and docker-compose)
 - Computer: Lenovo laptop
-- Operating system: Ubuntu 22.01
+- Operating system: Ubuntu 22.04
 - Docker version: 27.5.0
 - Docker compose version: 2.32.4
 
@@ -91,4 +91,4 @@ The tool I used was Cursor, an editor with a build in AI chat. With prompts like
 Overall I learned a lot during the project. However it was more timeconsuming than I had expected which resulted in me not finishing all features and having no time for optional ones. 
 
 ## Amount effort (hours) used
-Approximately 60-70 hours
+Approximately 70-80 hours
