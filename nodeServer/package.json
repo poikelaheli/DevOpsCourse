@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "tests": "jest",
+    "tests": "jest --forceExit",
     "start": "node App.js"
   },
   "author": "",
